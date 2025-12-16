@@ -1,133 +1,188 @@
-/* Global Styles */
+/* --- 🎨 CSS Variables for Theming and Consistency --- */
+:root {
+    /* Colors */
+    --primary-color: #667eea;
+    --primary-color-hover: #5568d3;
+    --secondary-color: #6c757d;
+    --secondary-color-hover: #5a6268;
+    --success-color: #28a745;
+    --success-color-hover: #218838;
+    --danger-color: #dc3545;
+    --danger-color-hover: #c82333;
+    --info-color: #17a2b8;
+    --info-color-hover: #138496;
+
+    --bg-gradient-start: #667eea; /* Matches body gradient start */
+    --bg-gradient-end: #764ba2;   /* Matches body gradient end */
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+    --text-dark: #333333;
+    --text-medium: #666666;
+    --border-light: #e0e0e0;
+    --border-medium: #dddddd;
+
+    /* Spacing & Sizes */
+    --spacing-xs: 8px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    --border-radius-sm: 5px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 10px;
+    --box-shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --box-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --transition-duration: 0.3s;
+}
+
+/* --- 🌐 Global Styles --- */
 * {
     margin: 0;
     padding: 0;
+    /* Use 'inherit' for box-sizing on the * selector for better modularity */
+    box-sizing: inherit; 
+}
+
+/* Set box-sizing globally, but allow * to inherit */
+html {
     box-sizing: border-box;
+    /* Smooth scrolling for anchor links */
+    scroll-behavior: smooth; 
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
-    padding: 20px;
-    color: #333;
+    padding: var(--spacing-md);
+    color: var(--text-dark);
+    /* Make sure background covers the whole viewport */
+    background-attachment: fixed;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    padding: 30px;
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-lg);
+    padding: var(--spacing-lg);
 }
 
+/* --- 🧭 Header & Navigation --- */
 header {
     text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #667eea;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 header h1 {
-    color: #667eea;
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    color: var(--primary-color);
+    font-size: clamp(1.8em, 5vw, 2.5em); /* Better fluid typography */
+    margin-bottom: var(--spacing-sm);
+    font-weight: 700; /* Added emphasis */
 }
 
 header p {
-    color: #666;
+    color: var(--text-medium);
     font-size: 1.1em;
 }
 
-/* Navigation Buttons */
 .nav-buttons {
     display: flex;
-    gap: 10px;
+    gap: var(--spacing-sm);
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: var(--spacing-lg);
     flex-wrap: wrap;
 }
 
-/* Buttons */
+/* --- ✨ Buttons --- */
 .btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    /* Consolidated padding for better consistency */
+    padding: 10px 20px; 
+    border: 1px solid transparent; /* Subtle border for better accessibility on various backgrounds */
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
+    transition: all var(--transition-duration) ease;
+    font-weight: 600; /* Slightly bolder */
+    text-decoration: none; /* Good practice for link buttons */
+    display: inline-flex; /* Helps with alignment if icons are added */
+    align-items: center;
+    justify-content: center;
 }
 
+/* Use BEM-like structure for button variants */
 .btn-primary {
-    background: #667eea;
-    color: white;
+    background: var(--primary-color);
+    color: var(--white);
 }
 
 .btn-primary:hover {
-    background: #5568d3;
+    background: var(--primary-color-hover);
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added hover shadow */
 }
 
 .btn-secondary {
-    background: #6c757d;
-    color: white;
+    background: var(--secondary-color);
+    color: var(--white);
 }
 
 .btn-secondary:hover {
-    background: #5a6268;
+    background: var(--secondary-color-hover);
 }
 
 .btn-success {
-    background: #28a745;
-    color: white;
+    background: var(--success-color);
+    color: var(--white);
 }
 
 .btn-success:hover {
-    background: #218838;
+    background: var(--success-color-hover);
 }
 
 .btn-danger {
-    background: #dc3545;
-    color: white;
+    background: var(--danger-color);
+    color: var(--white);
 }
 
 .btn-danger:hover {
-    background: #c82333;
+    background: var(--danger-color-hover);
 }
 
 .btn-info {
-    background: #17a2b8;
-    color: white;
+    background: var(--info-color);
+    color: var(--white);
 }
 
 .btn-info:hover {
-    background: #138496;
+    background: var(--info-color-hover);
 }
 
-/* Forms */
+/* --- 📝 Forms --- */
 .form-container {
     max-width: 500px;
     margin: 0 auto;
 }
 
 .form {
-    background: #f8f9fa;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: var(--light-bg);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-sm);
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-md);
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: var(--spacing-xs);
     font-weight: 600;
-    color: #333;
+    color: var(--text-dark);
+    font-size: 0.95rem; /* Slightly smaller for form labels */
 }
 
 .form-group input,
@@ -135,88 +190,100 @@ header p {
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: border-color 0.3s;
+    border: 1px solid var(--border-medium); /* Changed to 1px for cleaner look */
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: border-color var(--transition-duration), box-shadow var(--transition-duration);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); /* Added focus ring */
 }
 
 .form-group textarea {
     resize: vertical;
     font-family: inherit;
+    min-height: 100px; /* Set a default minimum height */
 }
 
 .form-footer {
     text-align: center;
-    margin-top: 20px;
-    color: #666;
+    margin-top: var(--spacing-md);
+    color: var(--text-medium);
+    font-size: 0.9em;
 }
 
 .form-footer a {
-    color: #667eea;
+    color: var(--primary-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600; /* Increased weight */
 }
 
 .form-footer a:hover {
     text-decoration: underline;
 }
 
-/* Message Display */
+/* --- 💬 Message Display --- */
 .message {
-    margin-top: 20px;
+    margin-top: var(--spacing-md);
     padding: 15px;
-    border-radius: 5px;
+    border-radius: var(--border-radius-sm);
     text-align: center;
     font-weight: 500;
-    display: none;
+    /* Use display: none only when not needed, but for styling demo, keep block */
+    display: none; 
+}
+
+/* Use a simple class for visibility */
+.message.is-visible {
+    display: block;
 }
 
 .message.success {
-    background: #d4edda;
-    color: #155724;
+    background: #d4edda; /* Light green */
+    color: #155724; /* Dark green text */
     border: 1px solid #c3e6cb;
-    display: block;
 }
 
 .message.error {
-    background: #f8d7da;
-    color: #721c24;
+    background: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red text */
     border: 1px solid #f5c6cb;
-    display: block;
 }
 
-/* Cards */
+/* --- 🗂️ Cards --- */
 .role-cards {
+    /* Use modern, more robust grid syntax */
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Increased min size for better aesthetics */
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
 }
 
 .card {
-    background: #f8f9fa;
+    background: var(--white); /* Changed card background to white for contrast */
     padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-sm);
+    border: 1px solid var(--border-light); /* Added subtle border */
+    transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
 }
 
 .card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger hover shadow */
 }
 
 .card h3 {
-    color: #667eea;
+    color: var(--primary-color);
     margin-bottom: 15px;
     font-size: 1.5em;
+    font-weight: 700;
 }
 
 .card ul {
@@ -225,8 +292,10 @@ header p {
 }
 
 .card ul li {
-    padding: 8px 0;
-    border-bottom: 1px solid #e0e0e0;
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-dark);
+    font-size: 0.95rem;
 }
 
 .card ul li:last-child {
@@ -235,82 +304,83 @@ header p {
 
 .card ul li::before {
     content: "✓ ";
-    color: #28a745;
+    color: var(--success-color);
     font-weight: bold;
     margin-right: 8px;
 }
 
-/* Jobs Container */
+/* --- 💼 Jobs Container --- */
 .jobs-container {
-    margin-top: 30px;
+    margin-top: var(--spacing-lg);
 }
 
 .job-card {
-    background: #f8f9fa;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #667eea;
+    background: var(--white); /* Changed card background to white */
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Lighter shadow */
+    border-left: 5px solid var(--primary-color); /* Increased border for emphasis */
 }
 
 .job-card h3 {
-    color: #667eea;
-    margin-bottom: 10px;
-    font-size: 1.3em;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+    font-size: 1.4em;
+    font-weight: 600;
 }
 
 .job-card .job-meta {
-    color: #666;
-    margin-bottom: 10px;
+    color: var(--text-medium);
+    margin-bottom: var(--spacing-sm);
     font-size: 0.9em;
 }
 
 .job-card .job-description {
     margin: 15px 0;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-dark);
 }
 
 .job-card .job-actions {
     margin-top: 15px;
     display: flex;
-    gap: 10px;
+    gap: var(--spacing-sm);
     flex-wrap: wrap;
 }
 
-/* User Info */
+/* --- 👤 User Info Block --- */
 .user-info {
-    background: #e7f3ff;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    border-left: 4px solid #667eea;
+    background: #e7f3ff; /* Light blue background */
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--spacing-md);
+    border-left: 5px solid var(--primary-color);
 }
 
 .user-info p {
     margin: 5px 0;
-    color: #333;
+    color: var(--text-dark);
 }
 
-/* Table */
+/* --- 📋 Table --- */
 .table-container {
     overflow-x: auto;
-    margin-top: 20px;
+    margin-top: var(--spacing-md);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
+    background: var(--white);
+    border-radius: var(--border-radius-md);
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 table th {
-    background: #667eea;
-    color: white;
+    background: var(--primary-color);
+    color: var(--white);
     padding: 15px;
     text-align: left;
     font-weight: 600;
@@ -318,62 +388,66 @@ table th {
 
 table td {
     padding: 12px 15px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-light);
 }
 
 table tr:hover {
-    background: #f8f9fa;
+    background: var(--light-bg);
 }
 
 table tr:last-child td {
     border-bottom: none;
 }
 
-/* Section */
+/* --- 📑 Section Styling --- */
 .section {
     margin-bottom: 40px;
 }
 
 .section h2 {
-    color: #667eea;
-    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 2em; /* Consistent heading size */
+    margin-bottom: var(--spacing-md);
     padding-bottom: 10px;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 2px solid var(--border-light);
+    font-weight: 700;
 }
 
-/* Footer */
+/* --- 🦶 Footer --- */
 footer {
     text-align: center;
     margin-top: 40px;
-    padding-top: 20px;
-    border-top: 2px solid #e0e0e0;
-    color: #666;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-light); /* Lighter border */
+    color: var(--text-medium);
+    font-size: 0.9rem;
 }
 
-/* Applicants List */
+/* --- 🧑‍💼 Applicants List --- */
 .applicants-list {
     margin-top: 15px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 5px;
+    padding: var(--spacing-sm); /* Slightly less padding */
+    background: var(--light-bg);
+    border-radius: var(--border-radius-sm);
 }
 
 .applicant-item {
-    padding: 10px;
-    margin-bottom: 10px;
-    background: white;
-    border-radius: 5px;
-    border-left: 3px solid #28a745;
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    background: var(--white);
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--success-color); /* Kept success color */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* subtle shadow for lift */
 }
 
 .applicant-item:last-child {
     margin-bottom: 0;
 }
 
-/* Responsive */
+/* --- 📱 Responsive Design --- */
 @media (max-width: 768px) {
     .container {
-        padding: 20px;
+        padding: var(--spacing-md); /* Use variable for consistency */
     }
 
     header h1 {
@@ -381,14 +455,35 @@ footer {
     }
 
     .role-cards {
-        grid-template-columns: 1fr;
+        /* This handles responsiveness well, but ensure the minmax value works */
+        grid-template-columns: 1fr; 
     }
 
+    .nav-buttons {
+        /* Keep as row but wrap for better use of horizontal space on small screens */
+        flex-direction: row; 
+        justify-content: space-around;
+        gap: var(--spacing-sm);
+    }
+    
+    .btn {
+        /* Allow buttons to take up 100% width on small screens if they wrap */
+        min-width: 45%; 
+    }
+}
+
+@media (max-width: 480px) {
+    /* For extra small screens, make buttons full width to stack cleanly */
     .nav-buttons {
         flex-direction: column;
     }
 
     .btn {
         width: 100%;
+        min-width: auto;
+    }
+
+    body {
+        padding: var(--spacing-sm);
     }
 }
