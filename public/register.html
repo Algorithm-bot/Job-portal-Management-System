@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Job Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Register</h1>
+        </header>
+
+        <main class="form-container">
+            <form id="registerForm" class="form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">I want to:</label>
+                    <select id="role" name="role" required>
+                        <option value="">Select role</option>
+                        <option value="job_seeker">Find Jobs (Job Seeker)</option>
+                        <option value="employer">Post Jobs (Employer)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Register</button>
+                <p class="form-footer">
+                    Already have an account? <a href="login.html">Login here</a>
+                </p>
+                <p class="form-footer">
+                    <a href="index.html">Back to Home</a>
+                </p>
+            </form>
+
+            <div id="message" class="message"></div>
+        </main>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

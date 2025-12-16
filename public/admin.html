@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Job Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👨‍💼 Admin Dashboard</h1>
+            <nav class="nav-buttons">
+                <button onclick="loadAllData()" class="btn btn-secondary">Refresh</button>
+                <button onclick="showUsers()" class="btn btn-info">View Users</button>
+                <button onclick="showJobs()" class="btn btn-info">View Jobs</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </header>
+
+        <main>
+            <div id="userInfo" class="user-info"></div>
+
+            <!-- Users Section -->
+            <div id="usersSection" class="section">
+                <h2>All Users</h2>
+                <div id="usersContainer" class="table-container">
+                    <p>Loading users...</p>
+                </div>
+            </div>
+
+            <!-- Jobs Section -->
+            <div id="jobsSection" class="section">
+                <h2>All Jobs</h2>
+                <div id="jobsContainer" class="jobs-container">
+                    <p>Loading jobs...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

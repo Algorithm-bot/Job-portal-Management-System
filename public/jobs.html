@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs - Job Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💼 Available Jobs</h1>
+            <nav class="nav-buttons">
+                <button onclick="loadJobs()" class="btn btn-secondary">Refresh</button>
+                <button onclick="viewMyApplications()" class="btn btn-info">My Applications</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </header>
+
+        <main>
+            <div id="userInfo" class="user-info"></div>
+            
+            <div id="jobsContainer" class="jobs-container">
+                <p>Loading jobs...</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="jobs.js"></script>
+</body>
+</html>
