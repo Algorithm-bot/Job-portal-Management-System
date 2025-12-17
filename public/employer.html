@@ -12,7 +12,7 @@
             <h1>🏢 Employer Dashboard</h1>
             <nav class="nav-buttons">
                 <button onclick="loadMyJobs()" class="btn btn-secondary">Refresh</button>
-                <button onclick="showPostJobForm()" class="btn btn-success">Post New Job</button>
+                <button onclick="startNewJob()" class="btn btn-success">Post New Job</button>
                 <button onclick="logout()" class="btn btn-danger">Logout</button>
             </nav>
         </header>
@@ -22,7 +22,7 @@
 
             <!-- Post Job Form (initially hidden) -->
             <div id="postJobForm" class="form-container" style="display: none;">
-                <h2>Post New Job</h2>
+                <h2 id="formTitle">Post New Job</h2>
                 <form id="jobForm" class="form">
                     <div class="form-group">
                         <label for="title">Job Title:</label>
@@ -40,7 +40,7 @@
                         <label for="description">Job Description:</label>
                         <textarea id="description" name="description" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Post Job</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Post Job</button>
                     <button type="button" onclick="hidePostJobForm()" class="btn btn-secondary">Cancel</button>
                 </form>
             </div>
@@ -54,3 +54,5 @@
     <script src="employer.js"></script>
 </body>
 </html>
+
+

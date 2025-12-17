@@ -38,3 +38,5 @@ app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
   console.log(`Make sure MySQL database is running and configured in db.js`);
 });
+
+

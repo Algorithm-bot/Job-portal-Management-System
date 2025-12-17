@@ -4,6 +4,8 @@ const API_BASE_URL = 'http://localhost:8001/api';
 
 // Check if user is logged in
 let currentUser = null;
+let editingJobId = null; // track job being edited
+let currentJobs = []; // cache jobs for editing
 
 document.addEventListener('DOMContentLoaded', () => {
   // Get user from localStorage
@@ -53,11 +55,13 @@ async function loadMyJobs() {
 
     if (data.success && data.jobs.length > 0) {
       container.innerHTML = '';
+      currentJobs = data.jobs;
       data.jobs.forEach(job => {
         const jobCard = createJobCard(job);
         container.appendChild(jobCard);
       });
     } else {
+      currentJobs = [];
       container.innerHTML = '<p>You have not posted any jobs yet. Click "Post New Job" to get started!</p>';
     }
   } catch (error) {
@@ -79,6 +83,8 @@ function createJobCard(job) {
     <div class="job-description">${job.description}</div>
     <div class="job-actions">
       <button onclick="viewApplicants(${job.id})" class="btn btn-info">View Applicants</button>
+      <button onclick="startEditJob(${job.id})" class="btn btn-secondary">Edit</button>
+      <button onclick="deleteJob(${job.id}, '${job.title}')" class="btn btn-danger">Delete</button>
     </div>
     <div id="applicants-${job.id}" class="applicants-list" style="display: none;"></div>
   `;
@@ -91,11 +97,21 @@ function showPostJobForm() {
   document.getElementById('jobsContainer').style.display = 'none';
 }
 
+// Start a fresh form for creating a job
+function startNewJob() {
+  editingJobId = null;
+  document.getElementById('formTitle').textContent = 'Post New Job';
+  document.getElementById('submitBtn').textContent = 'Post Job';
+  document.getElementById('jobForm').reset();
+  showPostJobForm();
+}
+
 // Hide post job form
 function hidePostJobForm() {
   document.getElementById('postJobForm').style.display = 'none';
   document.getElementById('jobsContainer').style.display = 'block';
   document.getElementById('jobForm').reset();
+  editingJobId = null;
 }
 
 // Handle job posting
@@ -108,8 +124,12 @@ async function handlePostJob(e) {
   const description = document.getElementById('description').value;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/jobs`, {
-      method: 'POST',
+    const isEdit = !!editingJobId;
+    const url = isEdit ? `${API_BASE_URL}/jobs/${editingJobId}` : `${API_BASE_URL}/jobs`;
+    const method = isEdit ? 'PUT' : 'POST';
+
+    const response = await fetch(url, {
+      method,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -125,15 +145,15 @@ async function handlePostJob(e) {
     const data = await response.json();
 
     if (data.success) {
-      alert('Job posted successfully!');
+      alert(isEdit ? 'Job updated successfully!' : 'Job posted successfully!');
       hidePostJobForm();
       loadMyJobs(); // Refresh jobs list
     } else {
-      alert(data.message || 'Failed to post job');
+      alert(data.message || 'Failed to save job');
     }
   } catch (error) {
-    console.error('Error posting job:', error);
-    alert('Error posting job. Make sure the server is running.');
+    console.error('Error saving job:', error);
+    alert('Error saving job. Make sure the server is running.');
   }
 }
 
@@ -175,8 +195,47 @@ async function viewApplicants(jobId) {
   }
 }
 
+// Start editing a job: fill form and show it
+function startEditJob(jobId) {
+  const job = currentJobs.find(j => j.id === jobId);
+  if (!job) {
+    alert('Unable to find job to edit.');
+    return;
+  }
+
+  editingJobId = jobId;
+  document.getElementById('formTitle').textContent = 'Edit Job';
+  document.getElementById('submitBtn').textContent = 'Update Job';
+  document.getElementById('title').value = job.title;
+  document.getElementById('company').value = job.company;
+  document.getElementById('location').value = job.location;
+  document.getElementById('description').value = job.description;
+  showPostJobForm();
+}
+
+// Delete a job
+async function deleteJob(jobId, jobTitle) {
+  if (!confirm(`Delete job "${jobTitle}"?`)) return;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/jobs/${jobId}`, { method: 'DELETE' });
+    const data = await response.json();
+    if (data.success) {
+      alert('Job deleted.');
+      loadMyJobs();
+    } else {
+      alert(data.message || 'Failed to delete job');
+    }
+  } catch (error) {
+    console.error('Error deleting job:', error);
+    alert('Error deleting job. Make sure the server is running.');
+  }
+}
+
 // Logout function
 function logout() {
   localStorage.removeItem('user');
   window.location.href = 'index.html';
 }
+
+

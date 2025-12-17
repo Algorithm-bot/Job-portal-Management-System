@@ -149,4 +149,49 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Update job (Admin or Employer)
+// PUT /api/jobs/:id
+router.put('/:id', async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const { title, description, company, location, employer_id } = req.body;
+
+    // Basic validation
+    if (!title || !description || !company || !location || !employer_id) {
+      return res.status(400).json({
+        success: false,
+        message: 'All fields are required',
+      });
+    }
+
+    // Ensure job exists
+    const [existing] = await db.execute('SELECT * FROM jobs WHERE id = ?', [jobId]);
+    if (existing.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Job not found',
+      });
+    }
+
+    // Update record
+    await db.execute(
+      'UPDATE jobs SET title = ?, description = ?, company = ?, location = ?, employer_id = ? WHERE id = ?',
+      [title, description, company, location, employer_id, jobId]
+    );
+
+    res.json({
+      success: true,
+      message: 'Job updated successfully',
+    });
+  } catch (error) {
+    console.error('Error updating job:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error updating job',
+    });
+  }
+});
+
 module.exports = router;
+
+
